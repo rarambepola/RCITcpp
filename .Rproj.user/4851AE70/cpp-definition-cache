@@ -69,21 +69,21 @@
                 "file" : "/home/rohan/RCITcpp/src/code.cpp",
                 "kind" : 6,
                 "line" : 253,
-                "name" : "RCIT_disag_cpp(Eigen::MatrixXd, Eigen::MatrixXd, Eigen::MatrixXd, double, double, double, Eigen::MatrixXd, Eigen::MatrixXd, Eigen::MatrixXd, Eigen::VectorXd, Eigen::VectorXd, Eigen::VectorXd, IntegerVector, IntegerVector, bool, double)",
+                "name" : "RCIT_disag_cpp(Eigen::MatrixXd, Eigen::MatrixXd, Eigen::MatrixXd, double, double, double, Eigen::MatrixXd, Eigen::MatrixXd, Eigen::MatrixXd, Eigen::VectorXd, Eigen::VectorXd, Eigen::VectorXd, IntegerVector, IntegerVector, bool, NumericVector, bool, double)",
                 "parent_name" : "",
-                "usr" : "c:@F@RCIT_disag_cpp#$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S0_#S0_#d#d#d#S0_#S0_#S0_#$@N@Eigen@C@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#S1_#S1_#$@N@Rcpp@C@Vector>#VI13#@N@Rcpp@CT>1#T@PreserveStorage#S2_#b#d#"
+                "usr" : "c:@F@RCIT_disag_cpp#$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S0_#S0_#d#d#d#S0_#S0_#S0_#$@N@Eigen@C@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#S1_#S1_#$@N@Rcpp@C@Vector>#VI13#@N@Rcpp@CT>1#T@PreserveStorage#S2_#b#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#b#d#"
             },
             {
                 "column" : 8,
                 "file" : "/home/rohan/RCITcpp/src/code.cpp",
                 "kind" : 6,
-                "line" : 344,
-                "name" : "RIT_disag_cpp(Eigen::MatrixXd, Eigen::MatrixXd, double, double, Eigen::MatrixXd, Eigen::VectorXd, IntegerVector, IntegerVector, bool, double)",
+                "line" : 367,
+                "name" : "RIT_disag_cpp(Eigen::MatrixXd, Eigen::MatrixXd, double, double, Eigen::MatrixXd, Eigen::VectorXd, IntegerVector, IntegerVector, bool, NumericVector, bool, double)",
                 "parent_name" : "",
-                "usr" : "c:@F@RIT_disag_cpp#$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S0_#d#d#S0_#$@N@Eigen@C@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#$@N@Rcpp@C@Vector>#VI13#@N@Rcpp@CT>1#T@PreserveStorage#S2_#b#d#"
+                "usr" : "c:@F@RIT_disag_cpp#$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S0_#d#d#S0_#$@N@Eigen@C@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#$@N@Rcpp@C@Vector>#VI13#@N@Rcpp@CT>1#T@PreserveStorage#S2_#b#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#b#d#"
             }
         ],
         "file" : "/home/rohan/RCITcpp/src/code.cpp",
-        "file_last_write" : 1592913598
+        "file_last_write" : 1596552416
     }
 ]

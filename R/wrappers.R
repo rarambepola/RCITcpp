@@ -50,7 +50,8 @@ RCIT_wrapper <- function(x, y, z, n_rff=5, n_rffz=100, n_bs=100, get_ts=FALSE){
                   b=b,
                   by=by,
                   bz=bz,
-                  return_ts = get_ts))
+                  return_ts = get_ts,
+                  n_bs=n_bs))
 }
 
 get_poly_start_end <- function(vals_list){
@@ -66,14 +67,17 @@ get_poly_start_end <- function(vals_list){
 }
 
 RCIT_disag_wrapper <- function(x_poly, y, z,
-                               polygon_start_index = polygon_start_index,
-                               polygon_end_index = polygon_end_index,
-                               n_rff=5, n_rffz=100, n_bs=100, get_ts=FALSE){
+                               polygon_start_index,
+                               polygon_end_index,
+                               n_rff=5, n_rffz=100, n_bs=100, get_ts=FALSE,
+                               population=NULL){
   x <- x_poly
   if(!is.matrix(x)) x <- matrix(x_poly)
   if(!is.matrix(y)) y <- matrix(y)
   if(!is.matrix(z)) z <- matrix(z)
 
+  population_supplied <- !is.null(population)
+  if(!population_supplied) population <- c(0, 0)
 
   #make w
   b <- runif(n_rff) * 2 * pi
@@ -105,18 +109,24 @@ RCIT_disag_wrapper <- function(x_poly, y, z,
                                 bz=bz,
                                 polygon_start_index = polygon_start_index,
                                 polygon_end_index = polygon_end_index,
-                                return_ts = get_ts)
+                                return_ts = get_ts,
+                                n_bs=n_bs,
+                                population=population,
+                                population_supplied=population_supplied)
   return(cpp_version)
 }
 
 RIT_disag_wrapper <- function(x_poly, y,
                               polygon_start_index,
                               polygon_end_index,
-                              n_rff=5, n_bs=100, get_ts=FALSE){
+                              n_rff=5, n_bs=100, get_ts=FALSE,
+                              population=NULL){
   x <- x_poly
   if(!is.matrix(x)) x <- matrix(x_poly)
   if(!is.matrix(y)) y <- matrix(y)
 
+  population_supplied <- !is.null(population)
+  if(!population_supplied) population <- c(0, 0)
 
   #make w
   b <- runif(n_rff) * 2 * pi
@@ -136,6 +146,9 @@ RIT_disag_wrapper <- function(x_poly, y,
                                b=b,
                                polygon_start_index = polygon_start_index,
                                polygon_end_index = polygon_end_index,
-                               return_ts = get_ts)
+                               return_ts = get_ts,
+                               n_bs=n_bs,
+                               population=population,
+                               population_supplied=population_supplied)
   return(cpp_version)
 }

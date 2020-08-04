@@ -21,11 +21,11 @@ RCIT_cpp <- function(x, y, z, median_x, median_y, median_z, w, wy, wz, b, by, bz
     .Call('_RCITcpp_RCIT_cpp', PACKAGE = 'RCITcpp', x, y, z, median_x, median_y, median_z, w, wy, wz, b, by, bz, return_ts, n_bs)
 }
 
-RCIT_disag_cpp <- function(x, y, z, median_x, median_y, median_z, w, wy, wz, b, by, bz, polygon_start_index, polygon_end_index, return_ts = 0L, n_bs = 100) {
-    .Call('_RCITcpp_RCIT_disag_cpp', PACKAGE = 'RCITcpp', x, y, z, median_x, median_y, median_z, w, wy, wz, b, by, bz, polygon_start_index, polygon_end_index, return_ts, n_bs)
+RCIT_disag_cpp <- function(x, y, z, median_x, median_y, median_z, w, wy, wz, b, by, bz, polygon_start_index, polygon_end_index, population_supplied, population, return_ts = 0L, n_bs = 100) {
+    .Call('_RCITcpp_RCIT_disag_cpp', PACKAGE = 'RCITcpp', x, y, z, median_x, median_y, median_z, w, wy, wz, b, by, bz, polygon_start_index, polygon_end_index, population_supplied, population, return_ts, n_bs)
 }
 
-RIT_disag_cpp <- function(x, y, median_x, median_y, w, b, polygon_start_index, polygon_end_index, return_ts = 0L, n_bs = 100) {
-    .Call('_RCITcpp_RIT_disag_cpp', PACKAGE = 'RCITcpp', x, y, median_x, median_y, w, b, polygon_start_index, polygon_end_index, return_ts, n_bs)
+RIT_disag_cpp <- function(x, y, median_x, median_y, w, b, polygon_start_index, polygon_end_index, population_supplied, population, return_ts = 0L, n_bs = 100) {
+    .Call('_RCITcpp_RIT_disag_cpp', PACKAGE = 'RCITcpp', x, y, median_x, median_y, w, b, polygon_start_index, polygon_end_index, population_supplied, population, return_ts, n_bs)
 }
 

@@ -256,6 +256,8 @@ double RCIT_disag_cpp(Eigen::MatrixXd x, Eigen::MatrixXd y, Eigen::MatrixXd z,
                       Eigen::VectorXd b, Eigen::VectorXd by, Eigen::VectorXd bz,
                       IntegerVector polygon_start_index,
                       IntegerVector polygon_end_index,
+                      bool population_supplied,
+                      NumericVector population,
                       bool return_ts=0,
                       double n_bs=100){
 
@@ -270,13 +272,24 @@ double RCIT_disag_cpp(Eigen::MatrixXd x, Eigen::MatrixXd y, Eigen::MatrixXd z,
 
   Eigen::MatrixXd f_z_polygon = Eigen::MatrixXd::Constant(n_x, n_rff_z, 0);
 
+  double polygon_pop;
   for(int i=0; i<n_x; i++){
     int i_count=0;
+    polygon_pop=0;
     for(int j=polygon_start_index(i); j<polygon_end_index(i); j++){
-      f_z_polygon.row(i) += f_z.row(j);
+      if(population_supplied){
+        f_z_polygon.row(i) += f_z.row(j) * population(j);
+        polygon_pop += population(j);
+      }else{
+        f_z_polygon.row(i) += f_z.row(j);
+      }
       i_count++;
     }
-    f_z_polygon.row(i) = f_z_polygon.row(i) / (double) i_count;
+    if(population_supplied){
+      f_z_polygon.row(i) = f_z_polygon.row(i) / polygon_pop;
+    }else{
+      f_z_polygon.row(i) = f_z_polygon.row(i) / (double) i_count;
+    }
   }
 
   f_x = normalise_cpp2(f_x);
@@ -308,11 +321,21 @@ double RCIT_disag_cpp(Eigen::MatrixXd x, Eigen::MatrixXd y, Eigen::MatrixXd z,
 
   for(int i=0; i<n_x; i++){
     int i_count=0;
+    polygon_pop=0;
     for(int j=polygon_start_index(i); j<polygon_end_index(i); j++){
-      res_y_polygon.row(i) += res_y.row(j);
+      if(population_supplied){
+        res_y_polygon.row(i) += res_y.row(j) * population(j);
+        polygon_pop += population(j);
+      }else{
+        res_y_polygon.row(i) += res_y.row(j);
+      }
       i_count++;
     }
-    res_y_polygon.row(i) = res_y_polygon.row(i) / (double) i_count;
+    if(population_supplied){
+      res_y_polygon.row(i) = res_y_polygon.row(i) / polygon_pop;
+    }else{
+      res_y_polygon.row(i) = res_y_polygon.row(i) / (double) i_count;
+    }
   }
 
 
@@ -346,6 +369,8 @@ double RIT_disag_cpp(Eigen::MatrixXd x, Eigen::MatrixXd y,
                      Eigen::MatrixXd w, Eigen::VectorXd b,
                      IntegerVector polygon_start_index,
                      IntegerVector polygon_end_index,
+                     bool population_supplied,
+                     NumericVector population,
                      bool return_ts=0,
                      double n_bs=100){
 
@@ -366,13 +391,24 @@ double RIT_disag_cpp(Eigen::MatrixXd x, Eigen::MatrixXd y,
   Eigen::MatrixXd f_y_polygon = Eigen::MatrixXd::Constant(n_x, n_rff_y, 0);
 
 
+  double polygon_pop;
   for(int i=0; i<n_x; i++){
     int i_count=0;
+    polygon_pop=0;
     for(int j=polygon_start_index(i); j<polygon_end_index(i); j++){
-      f_y_polygon.row(i) += f_y.row(j);
+      if(population_supplied){
+        f_y_polygon.row(i) += f_y.row(j) * population(j);
+        polygon_pop += population(j);
+      }else{
+        f_y_polygon.row(i) += f_y.row(j);
+      }
       i_count++;
     }
-    f_y_polygon.row(i) = f_y_polygon.row(i) / (double) i_count;
+    if(population_supplied){
+      f_y_polygon.row(i) = f_y_polygon.row(i) / polygon_pop;
+    }else{
+      f_y_polygon.row(i) = f_y_polygon.row(i) / (double) i_count;
+    }
   }
 
 
