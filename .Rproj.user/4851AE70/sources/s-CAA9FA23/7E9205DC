@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1594113952243.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "7E9205DC",
+    "lastKnownWriteTime" : 1594137589,
+    "last_content_update" : 1594137589696,
+    "path" : "~/HBHI/Mozambique/gcp/spatial_pixel_CI_test.R",
+    "project_path" : null,
+    "properties" : {
+        "cursorPosition" : "32,64",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

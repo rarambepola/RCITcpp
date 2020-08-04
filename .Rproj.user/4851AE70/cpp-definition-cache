@@ -1,0 +1,89 @@
+[
+    {
+        "definitions" : [
+            {
+                "column" : 17,
+                "file" : "/home/rohan/RCITcpp/src/code.cpp",
+                "kind" : 6,
+                "line" : 35,
+                "name" : "cov_cpp2(Eigen::MatrixXd, Eigen::MatrixXd)",
+                "parent_name" : "",
+                "usr" : "c:@F@cov_cpp2#$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S0_#"
+            },
+            {
+                "column" : 17,
+                "file" : "/home/rohan/RCITcpp/src/code.cpp",
+                "kind" : 6,
+                "line" : 85,
+                "name" : "normalise_cpp2(Eigen::MatrixXd)",
+                "parent_name" : "",
+                "usr" : "c:@F@normalise_cpp2#$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#"
+            },
+            {
+                "column" : 17,
+                "file" : "/home/rohan/RCITcpp/src/code.cpp",
+                "kind" : 6,
+                "line" : 112,
+                "name" : "make_rff_cpp(Eigen::MatrixXd, Eigen::MatrixXd, double, Eigen::VectorXd)",
+                "parent_name" : "",
+                "usr" : "c:@F@make_rff_cpp#$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S0_#d#$@N@Eigen@C@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#"
+            },
+            {
+                "column" : 8,
+                "file" : "/home/rohan/RCITcpp/src/code.cpp",
+                "kind" : 6,
+                "line" : 130,
+                "name" : "makeSta(Eigen::MatrixXd, Eigen::MatrixXd, double, double, Eigen::MatrixXd, Eigen::VectorXd)",
+                "parent_name" : "",
+                "usr" : "c:@F@makeSta#$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S0_#d#d#S0_#$@N@Eigen@C@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#"
+            },
+            {
+                "column" : 8,
+                "file" : "/home/rohan/RCITcpp/src/code.cpp",
+                "kind" : 6,
+                "line" : 159,
+                "name" : "RIT_cpp(Eigen::MatrixXd, Eigen::MatrixXd, double, double, Eigen::MatrixXd, Eigen::VectorXd, bool, double)",
+                "parent_name" : "",
+                "usr" : "c:@F@RIT_cpp#$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S0_#d#d#S0_#$@N@Eigen@C@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#b#d#"
+            },
+            {
+                "column" : 8,
+                "file" : "/home/rohan/RCITcpp/src/code.cpp",
+                "kind" : 6,
+                "line" : 185,
+                "name" : "sum_squares(Eigen::MatrixXd)",
+                "parent_name" : "",
+                "usr" : "c:@F@sum_squares#$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#"
+            },
+            {
+                "column" : 8,
+                "file" : "/home/rohan/RCITcpp/src/code.cpp",
+                "kind" : 6,
+                "line" : 196,
+                "name" : "RCIT_cpp(Eigen::MatrixXd, Eigen::MatrixXd, Eigen::MatrixXd, double, double, double, Eigen::MatrixXd, Eigen::MatrixXd, Eigen::MatrixXd, Eigen::VectorXd, Eigen::VectorXd, Eigen::VectorXd, bool, double)",
+                "parent_name" : "",
+                "usr" : "c:@F@RCIT_cpp#$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S0_#S0_#d#d#d#S0_#S0_#S0_#$@N@Eigen@C@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#S1_#S1_#b#d#"
+            },
+            {
+                "column" : 8,
+                "file" : "/home/rohan/RCITcpp/src/code.cpp",
+                "kind" : 6,
+                "line" : 253,
+                "name" : "RCIT_disag_cpp(Eigen::MatrixXd, Eigen::MatrixXd, Eigen::MatrixXd, double, double, double, Eigen::MatrixXd, Eigen::MatrixXd, Eigen::MatrixXd, Eigen::VectorXd, Eigen::VectorXd, Eigen::VectorXd, IntegerVector, IntegerVector, bool, double)",
+                "parent_name" : "",
+                "usr" : "c:@F@RCIT_disag_cpp#$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S0_#S0_#d#d#d#S0_#S0_#S0_#$@N@Eigen@C@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#S1_#S1_#$@N@Rcpp@C@Vector>#VI13#@N@Rcpp@CT>1#T@PreserveStorage#S2_#b#d#"
+            },
+            {
+                "column" : 8,
+                "file" : "/home/rohan/RCITcpp/src/code.cpp",
+                "kind" : 6,
+                "line" : 344,
+                "name" : "RIT_disag_cpp(Eigen::MatrixXd, Eigen::MatrixXd, double, double, Eigen::MatrixXd, Eigen::VectorXd, IntegerVector, IntegerVector, bool, double)",
+                "parent_name" : "",
+                "usr" : "c:@F@RIT_disag_cpp#$@N@Eigen@C@Matrix>#d#VI-1#VI-1#VI0#VI-1#VI-1#S0_#d#d#S0_#$@N@Eigen@C@Matrix>#d#VI-1#VI1#VI0#VI-1#VI1#$@N@Rcpp@C@Vector>#VI13#@N@Rcpp@CT>1#T@PreserveStorage#S2_#b#d#"
+            }
+        ],
+        "file" : "/home/rohan/RCITcpp/src/code.cpp",
+        "file_last_write" : 1592913598
+    }
+]

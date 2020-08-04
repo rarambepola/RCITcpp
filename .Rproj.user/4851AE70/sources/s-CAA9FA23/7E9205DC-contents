@@ -1,0 +1,141 @@
+args <- commandArgs(trailingOnly=TRUE)
+# seed <- args[1]
+
+for(seed in 41:50){
+  print(seed)
+# seed <- 1
+set.seed(seed)
+if(!is.na(args[2])) alpha_use <- args[2] else alpha_use <- 0.9
+if(!is.na(args[3])) alpha_step2 <- args[3] else alpha_step2 <- alpha_use
+# for now getting it working on local machine
+setwd(paste0(Sys.getenv("HOME"), "/HBHI"))
+library(RCITcpp)
+# output_folder <- "Mozambique/"
+# source("../Map_madagascar/CausalSelection/pcalg_both_steps_aggregated.R")
+load("Mozambique/spatial_pixel_prewhitened.RData")
+polygon_sizes <- cumsum(sapply(cov_list$Access, length))
+polygon_start_index <- c(0, polygon_sizes)
+polygon_start_index <- polygon_start_index[-length(polygon_start_index)]
+polygon_end_index <- polygon_sizes - 1
+cov_unlist <- lapply(cov_list, unlist)
+
+# ##try out independence test
+# print(RIT_disag_wrapper(x_poly = cov_unlist$inc,
+#                         y = cov_unlist$Access,
+#                         polygon_start_index = polygon_start_index,
+#                         polygon_end_index = polygon_end_index)
+#       )
+#
+# print(RCIT_disag_wrapper(x_poly = cov_unlist$inc,
+#                         y = cov_unlist$Access,
+#                         z = cov_unlist$AI,
+#                         polygon_start_index = polygon_start_index,
+#                         polygon_end_index = polygon_end_index)
+# )
+
+# source("../Causal-Inference-Functions/graph_functions.R")
+# source("../Causal-Inference-Functions/indpendence_tests.R")
+# source("../Causal-Inference-Functions/independence_test_wrapper.R")
+# source("../Causal-Inference-Functions/pc_algorithm.R")
+# source("../Causal-Inference-Functions/pc_algorithm_last_step.R")
+# source("../Causal-Inference-Functions/pc_algorithm_both_steps.R")
+
+library(causalInference)
+
+
+ptm <- proc.time()
+pc_both <- pcalg_both_steps(cov_unlist, alpha=0.5, last.index=1,
+                              run_parallel = TRUE,
+                              n_cl=2,
+                              aggregated=TRUE,
+                              subset_step_1=100,
+                              polygon_start_index = polygon_start_index,
+                              polygon_end_index = polygon_end_index,
+                              alpha_step_2 = 0.8,
+                            n_rff_z=25)
+print(proc.time() - ptm)
+
+# pc_second <- pcalg_both_steps(cov_unlist, 0.8, 1, run_parallel = TRUE, aggregated = TRUE)
+
+# N_sample <- 100
+# sample_use <- sample.int(length(cov_unlist[[2]]), N_sample)
+# cov_test <- lapply(cov_unlist[-1], function(l) l[sample_use])
+# ptm <- proc.time()
+# pc_first <- pcalg(cov_test, alpha=0.4, run_parallel = FALSE, supprMessages = TRUE, test="partial correlation")
+# print(proc.time() - ptm)
+#
+# n_var <- length(cov_unlist)
+# G_0 <- matrix(1, n_var, n_var) - diag(n_var)
+# G_0[-1, -1] <- pc_first[[1]]
+#
+# ptm <- proc.time()
+# # cov_unlist <- c(cov_unlist[1], lapply(cov_unlist[-1], function(l) l[1:100]))
+# pc_second <- pcalg_last(cov_unlist, 0, 1, G_0=G_0, aggregated = TRUE, run_parallel = FALSE,
+#                         polygon_start_index=polygon_start_index,
+#                         polygon_end_index=polygon_end_index)
+# print(proc.time() - ptm)
+
+
+# source("../Map_madagascar/CausalSelection/plot_minimal.R")
+# library(igraph)
+# plot(graph_from_adjacency_matrix(pc_second[[1]]), main="residuals")
+# plot(graph_from_adjacency_matrix(graph.minimal.n(pc_second[[1]], 1, 1)),
+#      main="Mozambique")
+
+# ptm <- proc.time()
+# pc_both <- pcalg_both_steps(cov_unlist, alpha=alpha_use, last.index=1,
+#                             polygon_start_index = polygon_start_index,
+#                  polygon_end_index = polygon_end_index,
+#                  n_cl=2,
+#                  filepaths = "../Map_madagascar/CausalSelection/",
+#                  n_subset_step1 = 1000,
+#                  sequential_step1 = TRUE,
+#                  sequential_step2 = TRUE,
+#                  supprMessages = FALSE,
+#                  alpha_step_2 = alpha_step2)
+#
+save(list=c("pc_both", "alpha_use", "alpha_step2"),
+     file=paste0("spatial_pixel_seed_", seed, ".RData"))
+print(proc.time() - ptm)
+
+
+
+# args <- commandArgs(trailingOnly=TRUE)
+#
+# seed <- args[1]
+# print(paste0("Seed: ", seed))
+#
+# print("spatial_CI.R")
+# path_output <- Sys.getenv("path_output")
+# path_input <- Sys.getenv("path_input")
+# setwd(path_input)
+# print(getwd())
+# output_folder <- paste0(path_output, "/")
+#
+# install.packages("RCITcpp_0.1.0.tar.gz", repos = NULL, type="source")
+#
+# list.of.packages <- c("foreach", "doParallel")
+# new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+# if(length(new.packages)) install.packages(new.packages)
+#
+# source("pcalg_both_steps_aggregated.R")
+# # load("Mozambique/spatial_prewhitened.RData")
+# load("Mozambique/spatial_pixel_prewhitened.RData")
+#
+# polygon_sizes <- cumsum(sapply(cov_list$Access, length))
+# polygon_start_index <- c(0, polygon_sizes)
+# polygon_start_index <- polygon_start_index[-length(polygon_start_index)]
+# polygon_end_index <- polygon_sizes - 1
+# cov_unlist <- lapply(cov_list, unlist)
+#
+# pc_both <- pcalg_both_steps(cov_unlist, alpha=0.4, last.index=1, polygon_start_index = polygon_start_index,
+#                  polygon_end_index = polygon_end_index,
+#                  n_cl=2,
+#                  n_subset_step1 = 200,
+#                  sequential_step1 = TRUE)
+# save(list=c("pc_both"),
+#      file=paste0(output_folder, "spatial_pixel_seed_", seed, ".RData"))
+
+}
+
+

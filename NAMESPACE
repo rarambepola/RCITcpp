@@ -1,0 +1,5 @@
+exportPattern("^[[:alpha:]]+")
+useDynLib(RCITcpp)
+import(Rcpp)
+import(RcppEigen)
+importFrom("stats", "dist", "median", "rnorm", "runif")
