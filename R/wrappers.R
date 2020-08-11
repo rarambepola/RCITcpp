@@ -152,3 +152,103 @@ RIT_disag_wrapper <- function(x_poly, y,
                                population_supplied=population_supplied)
   return(cpp_version)
 }
+
+
+RCIT_disag_wrapper_v2 <- function(x, y, z,
+                                  poly_start,
+                                  poly_end,
+                                  population,
+                                  n_rff=5,
+                                  n_rff_z=20,
+                                  n_bs=100,
+                                  get_ts=FALSE){
+  if(!is.matrix(x)) x <- matrix(x)
+  if(!is.matrix(y)) y <- matrix(y)
+  if(!is.matrix(z)) z <- matrix(z)
+  population <- population / sum(population)
+
+  n_obs <- length(poly_start)
+  #make w
+  b_x <- runif(n_rff) * 2 * pi
+  w_x <- matrix(rnorm(dim(x)[2] * n_rff), nrow=n_rff)
+  b_y <- runif(n_rff) * 2 * pi
+  w_y <- matrix(rnorm(dim(y)[2] * n_rff), nrow=n_rff)
+  b_z <- runif(n_rff_z) * 2 * pi
+  w_z <- matrix(rnorm(dim(z)[2] * n_rff_z), nrow=n_rff_z)
+
+  x <- normalise_cpp2(x)
+  y <- normalise_cpp2(y)
+  z <- normalise_cpp2(z)
+
+  sample_x_size <- min(dim(x)[1], 500)
+  med_x <- median(c(t(dist(x[sample.int(dim(x)[1], sample_x_size)]))))
+  sample_y_size <- min(dim(y)[1], 500)
+  med_y <- median(c(t(dist(y[sample.int(dim(y)[1], sample_y_size)]))))
+  sample_z_size <- min(dim(z)[1], 500)
+  med_z <- median(c(t(dist(z[sample.int(dim(z)[1], sample_z_size)]))))
+
+  cpp_version <- RCIT_disag_cpp_v2(x = x,
+                                   y = y,
+                                   z = z,
+                                   median_x = med_x,
+                                   median_y = med_y,
+                                   median_z = med_z,
+                                   w=w_x,
+                                   wy=w_y,
+                                   wz=w_z,
+                                   b=b_x,
+                                   by=b_y,
+                                   bz=b_z,
+                                   polygon_start_index = poly_start,
+                                   polygon_end_index = poly_end,
+                                   population=population,
+                                   return_ts = get_ts,
+                                   n_bs=n_bs,
+                                   n_obs=n_obs)
+  # print("cpp")
+  # print(cpp_version)
+  return(cpp_version)
+}
+
+RIT_disag_wrapper_v2 <- function(x, y,
+                                 poly_start,
+                                 poly_end,
+                                 population,
+                                 n_rff=5, n_bs=100, get_ts=FALSE){
+  if(!is.matrix(x)) x <- matrix(x)
+  if(!is.matrix(y)) y <- matrix(y)
+  population <- population / sum(population)
+
+  n_obs <- length(poly_start)
+  #make w
+  b_x <- runif(n_rff) * 2 * pi
+  w_x <- matrix(rnorm(dim(x)[2] * n_rff), nrow=n_rff)
+  b_y <- runif(n_rff) * 2 * pi
+  w_y <- matrix(rnorm(dim(y)[2] * n_rff), nrow=n_rff)
+
+  x <- normalise_cpp2(x)
+  y <- normalise_cpp2(y)
+
+  sample_x_size <- min(dim(x)[1], 500)
+  med_x <- median(c(t(dist(x[sample.int(dim(x)[1], sample_x_size)]))))
+  sample_y_size <- min(dim(y)[1], 500)
+  med_y <- median(c(t(dist(y[sample.int(dim(x)[1], sample_y_size)]))))
+
+  cpp_version <- RIT_disag_cpp_v2(x = x,
+                                  y = y,
+                                  median_x = med_x,
+                                  median_y = med_y,
+                                  w_x=w_x,
+                                  b_x=b_x,
+                                  w_y=w_y,
+                                  b_y=b_y,
+                                  polygon_start_index = poly_start,
+                                  polygon_end_index = poly_end,
+                                  population=population,
+                                  return_ts = get_ts,
+                                  n_bs=n_bs,
+                                  n_obs=n_obs)
+  # print("cpp")
+  # print(cpp_version)
+  return(cpp_version)
+}

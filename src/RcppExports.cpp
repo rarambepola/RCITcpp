@@ -135,6 +135,58 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// RIT_disag_cpp_v2
+double RIT_disag_cpp_v2(Eigen::MatrixXd x, Eigen::MatrixXd y, double median_x, double median_y, Eigen::MatrixXd w_x, Eigen::VectorXd b_x, Eigen::MatrixXd w_y, Eigen::VectorXd b_y, IntegerVector polygon_start_index, IntegerVector polygon_end_index, NumericVector population, int n_obs, bool return_ts, double n_bs);
+RcppExport SEXP _RCITcpp_RIT_disag_cpp_v2(SEXP xSEXP, SEXP ySEXP, SEXP median_xSEXP, SEXP median_ySEXP, SEXP w_xSEXP, SEXP b_xSEXP, SEXP w_ySEXP, SEXP b_ySEXP, SEXP polygon_start_indexSEXP, SEXP polygon_end_indexSEXP, SEXP populationSEXP, SEXP n_obsSEXP, SEXP return_tsSEXP, SEXP n_bsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type x(xSEXP);
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type y(ySEXP);
+    Rcpp::traits::input_parameter< double >::type median_x(median_xSEXP);
+    Rcpp::traits::input_parameter< double >::type median_y(median_ySEXP);
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type w_x(w_xSEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXd >::type b_x(b_xSEXP);
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type w_y(w_ySEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXd >::type b_y(b_ySEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type polygon_start_index(polygon_start_indexSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type polygon_end_index(polygon_end_indexSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type population(populationSEXP);
+    Rcpp::traits::input_parameter< int >::type n_obs(n_obsSEXP);
+    Rcpp::traits::input_parameter< bool >::type return_ts(return_tsSEXP);
+    Rcpp::traits::input_parameter< double >::type n_bs(n_bsSEXP);
+    rcpp_result_gen = Rcpp::wrap(RIT_disag_cpp_v2(x, y, median_x, median_y, w_x, b_x, w_y, b_y, polygon_start_index, polygon_end_index, population, n_obs, return_ts, n_bs));
+    return rcpp_result_gen;
+END_RCPP
+}
+// RCIT_disag_cpp_v2
+double RCIT_disag_cpp_v2(Eigen::MatrixXd x, Eigen::MatrixXd y, Eigen::MatrixXd z, double median_x, double median_y, double median_z, Eigen::MatrixXd w, Eigen::MatrixXd wy, Eigen::MatrixXd wz, Eigen::VectorXd b, Eigen::VectorXd by, Eigen::VectorXd bz, IntegerVector polygon_start_index, IntegerVector polygon_end_index, NumericVector population, int n_obs, bool return_ts, double n_bs);
+RcppExport SEXP _RCITcpp_RCIT_disag_cpp_v2(SEXP xSEXP, SEXP ySEXP, SEXP zSEXP, SEXP median_xSEXP, SEXP median_ySEXP, SEXP median_zSEXP, SEXP wSEXP, SEXP wySEXP, SEXP wzSEXP, SEXP bSEXP, SEXP bySEXP, SEXP bzSEXP, SEXP polygon_start_indexSEXP, SEXP polygon_end_indexSEXP, SEXP populationSEXP, SEXP n_obsSEXP, SEXP return_tsSEXP, SEXP n_bsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type x(xSEXP);
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type y(ySEXP);
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type z(zSEXP);
+    Rcpp::traits::input_parameter< double >::type median_x(median_xSEXP);
+    Rcpp::traits::input_parameter< double >::type median_y(median_ySEXP);
+    Rcpp::traits::input_parameter< double >::type median_z(median_zSEXP);
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type w(wSEXP);
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type wy(wySEXP);
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type wz(wzSEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXd >::type b(bSEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXd >::type by(bySEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXd >::type bz(bzSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type polygon_start_index(polygon_start_indexSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type polygon_end_index(polygon_end_indexSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type population(populationSEXP);
+    Rcpp::traits::input_parameter< int >::type n_obs(n_obsSEXP);
+    Rcpp::traits::input_parameter< bool >::type return_ts(return_tsSEXP);
+    Rcpp::traits::input_parameter< double >::type n_bs(n_bsSEXP);
+    rcpp_result_gen = Rcpp::wrap(RCIT_disag_cpp_v2(x, y, z, median_x, median_y, median_z, w, wy, wz, b, by, bz, polygon_start_index, polygon_end_index, population, n_obs, return_ts, n_bs));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_RCITcpp_cov_cpp2", (DL_FUNC) &_RCITcpp_cov_cpp2, 2},
@@ -144,6 +196,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_RCITcpp_RCIT_cpp", (DL_FUNC) &_RCITcpp_RCIT_cpp, 14},
     {"_RCITcpp_RCIT_disag_cpp", (DL_FUNC) &_RCITcpp_RCIT_disag_cpp, 18},
     {"_RCITcpp_RIT_disag_cpp", (DL_FUNC) &_RCITcpp_RIT_disag_cpp, 12},
+    {"_RCITcpp_RIT_disag_cpp_v2", (DL_FUNC) &_RCITcpp_RIT_disag_cpp_v2, 14},
+    {"_RCITcpp_RCIT_disag_cpp_v2", (DL_FUNC) &_RCITcpp_RCIT_disag_cpp_v2, 18},
     {NULL, NULL, 0}
 };
 

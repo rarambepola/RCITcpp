@@ -437,3 +437,162 @@ double RIT_disag_cpp(Eigen::MatrixXd x, Eigen::MatrixXd y,
 }
 
 
+
+// [[Rcpp::export]]
+double RIT_disag_cpp_v2(Eigen::MatrixXd x, Eigen::MatrixXd y,
+                        double median_x, double median_y,
+                        Eigen::MatrixXd w_x, Eigen::VectorXd b_x,
+                        Eigen::MatrixXd w_y, Eigen::VectorXd b_y,
+                        IntegerVector polygon_start_index,
+                        IntegerVector polygon_end_index,
+                        NumericVector population,
+                        int n_obs,
+                        bool return_ts=0,
+                        double n_bs=100){
+
+  // int n_x = x.size();
+
+  Eigen::MatrixXd f_x = make_rff_cpp(x, w_x, median_x, b_x);
+  Eigen::MatrixXd f_y = make_rff_cpp(y, w_y, median_y, b_y);
+
+
+
+  int n_rff_y = f_y.cols();
+
+  f_x = normalise_cpp2(f_x);
+  f_y = normalise_cpp2(f_y);
+
+
+
+  //aggregate y residuals
+  // Eigen::MatrixXd res_y_polygon(n_x, n_rff_y);
+  // res_y_polygon.Zero();
+
+  Eigen::MatrixXd f_y_polygon = Eigen::MatrixXd::Constant(n_obs, n_rff_y, 0);
+  Eigen::MatrixXd f_x_polygon = Eigen::MatrixXd::Constant(n_obs, n_rff_y, 0);
+
+
+  double polygon_pop;
+  for(int i=0; i<n_obs; i++){
+    int i_count=0;
+    polygon_pop=0;
+    for(int j=polygon_start_index(i); j<polygon_end_index(i); j++){
+      f_x_polygon.row(i) += f_x.row(j) * population(j);
+      polygon_pop += population(j);
+      f_y_polygon.row(i) += f_y.row(j) * population(j);
+    }
+
+    f_y_polygon.row(i) = f_y_polygon.row(i) / polygon_pop;
+    f_x_polygon.row(i) = f_x_polygon.row(i) / polygon_pop;
+  }
+
+  // std::cout << f_x_polygon.sum() << "\n";
+
+  Eigen::MatrixXd Cxy_z = cov_cpp2(f_x_polygon, f_y_polygon);
+  int r=x.rows();
+  double Sta = sum_squares(Cxy_z);
+
+  if(return_ts) return(Sta);
+  Eigen::MatrixXd f_x_copy;
+  Eigen::PermutationMatrix<Eigen::Dynamic,Eigen::Dynamic> perm(f_x_polygon.rows());
+  perm.setIdentity();
+  double Sta_i;
+  int n_above=0;
+
+  for(int i=0; i<n_bs; i++){
+    std::random_shuffle(perm.indices().data(), perm.indices().data()+perm.indices().size());
+    f_x_copy = perm * f_x_polygon;
+    // std::cout<<f_x_copy(0, 0)<<"\n";
+    Cxy_z = cov_cpp2(f_x_copy, f_y_polygon);
+
+    Sta_i = sum_squares(Cxy_z);
+    // std::cout<<Sta_i<<"\n";
+    if(Sta > Sta_i) n_above++;
+  }
+
+  return(1 - (n_above / n_bs));
+}
+
+
+
+// [[Rcpp::export]]
+double RCIT_disag_cpp_v2(Eigen::MatrixXd x, Eigen::MatrixXd y, Eigen::MatrixXd z,
+                         double median_x, double median_y, double median_z,
+                         Eigen::MatrixXd w, Eigen::MatrixXd wy, Eigen::MatrixXd wz,
+                         Eigen::VectorXd b, Eigen::VectorXd by, Eigen::VectorXd bz,
+                         IntegerVector polygon_start_index,
+                         IntegerVector polygon_end_index,
+                         NumericVector population,
+                         int n_obs,
+                         bool return_ts=0,
+                         double n_bs=100){
+
+
+  Eigen::MatrixXd f_x = make_rff_cpp(x, w, median_x, b);
+  Eigen::MatrixXd f_y = make_rff_cpp(y, wy, median_y, by);
+  Eigen::MatrixXd f_z = make_rff_cpp(z, wz, median_z, bz);
+
+  int n_rff_z = f_z.cols();
+  int n_rff_y = f_y.cols();
+
+  Eigen::MatrixXd f_z_polygon = Eigen::MatrixXd::Constant(n_obs, n_rff_z, 0);
+  Eigen::MatrixXd f_x_polygon = Eigen::MatrixXd::Constant(n_obs, n_rff_y, 0);
+  Eigen::MatrixXd f_y_polygon = Eigen::MatrixXd::Constant(n_obs, n_rff_y, 0);
+
+  double polygon_pop;
+  for(int i=0; i<n_obs; i++){
+    int i_count=0;
+    polygon_pop=0;
+    for(int j=polygon_start_index(i); j<polygon_end_index(i); j++){
+      f_z_polygon.row(i) += f_z.row(j) * population(j);
+      f_x_polygon.row(i) += f_x.row(j) * population(j);
+      f_y_polygon.row(i) += f_y.row(j) * population(j);
+      polygon_pop += population(j);
+    }
+    f_z_polygon.row(i) = f_z_polygon.row(i) / polygon_pop;
+    f_x_polygon.row(i) = f_x_polygon.row(i) / polygon_pop;
+    f_y_polygon.row(i) = f_y_polygon.row(i) / polygon_pop;
+  }
+
+  f_x_polygon = normalise_cpp2(f_x_polygon);
+  f_y_polygon = normalise_cpp2(f_y_polygon);
+  f_z_polygon = normalise_cpp2(f_z_polygon);
+
+
+  Eigen::MatrixXd Czz = cov_cpp2(f_z_polygon, f_z_polygon);
+  Eigen::MatrixXd Czx = cov_cpp2(f_z_polygon, f_x_polygon);
+  Eigen::MatrixXd Czy = cov_cpp2(f_z_polygon, f_y_polygon);
+
+  for(int i=0; i<Czz.cols(); i++){
+    Czz(i, i) += 0.000001;
+  }
+
+  Eigen::MatrixXd e_x_z = f_z_polygon * Czz.llt().solve(Czx);
+  Eigen::MatrixXd e_y_z = f_z_polygon * Czz.llt().solve(Czy);
+
+  Eigen::MatrixXd res_x = f_x - e_x_z;
+  Eigen::MatrixXd res_y = f_y - e_y_z;
+
+  Eigen::MatrixXd Cxy_z = cov_cpp2(res_x, res_y);
+  int r=x.rows();
+  double Sta = sum_squares(Cxy_z);
+
+  if(return_ts) return(Sta);
+
+  Eigen::MatrixXd res_x_copy;
+  Eigen::PermutationMatrix<Eigen::Dynamic,Eigen::Dynamic> perm(n_obs);
+  perm.setIdentity();
+  double Sta_i;
+  int n_above=0;
+
+  for(int i=0; i<n_bs; i++){
+    std::random_shuffle(perm.indices().data(), perm.indices().data()+perm.indices().size());
+    res_x_copy = perm * res_x;
+    Cxy_z = cov_cpp2(res_x_copy, res_y);
+
+    Sta_i = sum_squares(Cxy_z);
+    if(Sta > Sta_i) n_above++;
+  }
+
+  return(1 - (n_above / n_bs));
+}
