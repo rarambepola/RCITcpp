@@ -416,7 +416,7 @@ double RIT_disag_cpp(Eigen::MatrixXd x, Eigen::MatrixXd y,
   int r=x.rows();
   double Sta = sum_squares(Cxy_z);
 
-  if(return_ts) return(Sta);
+  if(return_ts) return(r*Sta);
 
   Eigen::MatrixXd f_x_copy;
   Eigen::PermutationMatrix<Eigen::Dynamic,Eigen::Dynamic> perm(x.rows());
@@ -492,7 +492,7 @@ double RIT_disag_cpp_v2(Eigen::MatrixXd x, Eigen::MatrixXd y,
   int r=x.rows();
   double Sta = sum_squares(Cxy_z);
 
-  if(return_ts) return(Sta);
+  if(return_ts) return(r*Sta);
   Eigen::MatrixXd f_x_copy;
   Eigen::PermutationMatrix<Eigen::Dynamic,Eigen::Dynamic> perm(f_x_polygon.rows());
   perm.setIdentity();
@@ -577,7 +577,7 @@ double RCIT_disag_cpp_v2(Eigen::MatrixXd x, Eigen::MatrixXd y, Eigen::MatrixXd z
   int r=x.rows();
   double Sta = sum_squares(Cxy_z);
 
-  if(return_ts) return(Sta);
+  if(return_ts) return(r*Sta);
 
   Eigen::MatrixXd res_x_copy;
   Eigen::PermutationMatrix<Eigen::Dynamic,Eigen::Dynamic> perm(n_obs);

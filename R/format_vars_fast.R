@@ -11,9 +11,22 @@ format_vars <- function(obs_list,
                         pop_static,
                         n_subset=100){
   u_agg_levels <- sort(unique(agg_levels))
+
+
   if(length(u_agg_levels) == 1){
-    if(u_agg_levels == 2 |u_agg_levels == 3){
-      print("all static or all dynamic")
+    if(u_agg_levels == 2){
+      print("all static")
+      #check for repeating pixels
+      pixel_used <- unique(pixel_static)
+      obs_list_use <- lapply(obs_list, function(l) l[match(pixel_used, pixel_static)])
+      n <- length(obs_list_use[[1]])
+      index_use <- sample.int(n, n_subset)
+      out_list <- lapply(obs_list_use, function(l) l[index_use])
+      pop <- rep(1, n)
+      polygon_start_index <- (1:n_subset) - 1
+      polygon_end_index <- 1:n_subset
+    }else{
+      print("all dynamic")
       n <- length(obs_list[[1]])
       index_use <- sample.int(n, n_subset)
       out_list <- lapply(obs_list, function(l) l[index_use])
@@ -195,7 +208,7 @@ format_vars <- function(obs_list,
             out_list[[which_static[j]]][which_i] <- rep(obs_list[[which_static[j]]][which_static_match],
                                                         each=poly_times[i])
           }
-          pop[which_i] <- rep(pop_dynamic[which_static_match],
+          pop[which_i] <- rep(pop_static[which_static_match],
                               each=poly_times[i])
         }
       }
